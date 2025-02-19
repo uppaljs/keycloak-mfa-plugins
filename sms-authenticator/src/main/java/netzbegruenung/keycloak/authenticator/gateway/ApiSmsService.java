@@ -108,7 +108,7 @@ public class ApiSmsService implements SmsService{
 
 	public Builder json_request(String phoneNumber, String message) {
 		String sendJson = "{"
-						  + Optional.ofNullable(apitokenattribute).map(it -> String.format("\"%s\":\"%s\",", it, apitoken)).orElse("")
+						  + Optional.ofNullable(apitokenattribute)..filter(attr -> !attr.trim().isEmpty()).map(it -> String.format("\"%s\":\"%s\",", it, apitoken)).orElse("")
 						  + String.format("\"%s\":\"%s\",", messageattribute, message)
 						  + String.format("\"%s\":%s,", receiverattribute, String.format(receiverJsonTemplate, phoneNumber))
 						  + String.format("\"%s\":\"%s\"", senderattribute, senderId)
